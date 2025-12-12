@@ -9,7 +9,8 @@
 
 module EtherHeaders
 
-export EtherHeader
+export AbstractEtherHeader
+export EHeader
 export capacity, index
 
 # * ===== ===== tools ===== ===== * #
@@ -49,7 +50,7 @@ end
     end
 end
 
-# * ===== ===== EtherHeader ===== ===== * #
+# * ===== ===== AbstractEtherHeader ===== ===== * #
 
 abstract type AbstractEtherHeader end
 
@@ -65,15 +66,17 @@ end
     return capacity(eh)[end] + index(eh)[end] - 1
 end
 
-struct EtherHeader <: AbstractEtherHeader
+# * ===== ===== EHeader ===== ===== * #
+
+struct EHeader <: AbstractEtherHeader
     capacity_nt_::NamedTuple
     index_nt_::NamedTuple
 end
 
-@inline function EtherHeader(capacity_nt::NamedTuple)
+@inline function EHeader(capacity_nt::NamedTuple)
     capacity_nt = Int(capacity_nt)
     index_nt = accumulate(capacity_nt)
-    return EtherHeader(capacity_nt, index_nt)
+    return EHeader(capacity_nt, index_nt)
 end
 
 end # module EtherHeaders
