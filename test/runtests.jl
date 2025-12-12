@@ -15,4 +15,5 @@ using EtherHeaders
     eh = EtherHeaders.EtherHeader(x)
     @test capacity(eh) == (mass = 1, rho = 1, x = 2, u = 2, s = 4)
     @test index(eh) == (mass = 1, rho = 2, x = 3, u = 5, s = 7)
+    @test length(eh) == 10
 end

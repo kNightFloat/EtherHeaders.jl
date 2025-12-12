@@ -61,6 +61,10 @@ end
     return getfield(eh, :index_nt_)
 end
 
+@inline function Base.length(eh::AbstractEtherHeader)::Int
+    return capacity(eh)[end] + index(eh)[end] - 1
+end
+
 struct EtherHeader <: AbstractEtherHeader
     capacity_nt_::NamedTuple
     index_nt_::NamedTuple
