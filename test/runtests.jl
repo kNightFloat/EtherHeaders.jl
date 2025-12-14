@@ -11,6 +11,8 @@ using Test
 using EtherHeaders
 
 @testset "ether headers" begin
+    a = Dict("x1" => 1, "x2" => 2, "x3" => 3)
+    @test dict2nt(a) == (x1 = 1, x2 = 2, x3 = 3) # dict inner order
     x = (mass = Int32(1), rho = Int64(1), x = Int16(2), u = Int128(2), s = Int8(4))
     eh = EHeader(x)
     @test capacity(eh) == (mass = 1, rho = 1, x = 2, u = 2, s = 4)

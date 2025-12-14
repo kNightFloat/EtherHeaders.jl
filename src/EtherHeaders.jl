@@ -9,11 +9,24 @@
 
 module EtherHeaders
 
+export dict2nt
 export AbstractEtherHeader
 export EHeader
 export capacity, index
 
 # * ===== ===== tools ===== ===== * #
+
+@inline function dict2nt(d::AbstractDict{Symbol,<:Integer})::NamedTuple
+    _names = Tuple(collect(keys(d)))
+    _values = collect(values(d))
+    return NamedTuple{_names}(Int.(_values))
+end
+
+@inline function dict2nt(d::AbstractDict{<:AbstractString,<:Integer})::NamedTuple
+    _names = Tuple(Symbol.(collect(keys(d))))
+    _values = collect(values(d))
+    return NamedTuple{_names}(Int.(_values))
+end
 
 @inline function allint(nt::NamedTuple)::Bool
     for (_, value) in pairs(nt)
