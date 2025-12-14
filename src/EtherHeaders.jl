@@ -81,6 +81,10 @@ end
     println(io, str)
 end
 
+@inline function Base.keys(eh::AbstractEtherHeader)
+    return keys(index(eh))
+end
+
 # * ===== ===== EHeader ===== ===== * #
 
 struct EHeader{Tnt<:NamedTuple} <: AbstractEtherHeader{Tnt}
