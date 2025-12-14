@@ -74,6 +74,13 @@ end
     return capacity(eh)[end] + index(eh)[end] - 1
 end
 
+@inline function Base.show(io::IO, eh::AbstractEtherHeader)
+    str::String = "$(String(nameof(typeof(eh)))){"
+    str *= "$(length(eh))}"
+    str *= "$(keys(index(eh)))"
+    println(io, str)
+end
+
 # * ===== ===== EHeader ===== ===== * #
 
 struct EHeader{Tnt<:NamedTuple} <: AbstractEtherHeader{Tnt}
