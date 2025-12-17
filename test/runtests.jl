@@ -20,4 +20,14 @@ using EtherHeaders
     @test length(eh) == 10
     @test eh isa EHeader{@NamedTuple{mass::Int64,rho::Int64,x::Int64,u::Int64,s::Int64}}
     @test keys(eh) == (:mass, :rho, :x, :u, :s)
+    @test capacity(eh, :mass) == 1
+    @test index(eh, :mass) == 1
+    @test capacity(eh, :rho) == 1
+    @test index(eh, :rho) == 2
+    @test capacity(eh, :x) == 2
+    @test index(eh, :x) == 3
+    @test capacity(eh, :u) == 2
+    @test index(eh, :u) == 5
+    @test capacity(eh, :s) == 4
+    @test index(eh, :s) == 7
 end

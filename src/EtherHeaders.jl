@@ -83,6 +83,14 @@ end
     return getfield(eh, :index_nt_)
 end
 
+@inline function capacity(eh::AbstractEtherHeader, field::Symbol)::Int
+    return getfield(capacity(eh), field)
+end
+
+@inline function index(eh::AbstractEtherHeader, field::Symbol)::Int
+    return getfield(index(eh), field)
+end
+
 @inline function Base.length(eh::AbstractEtherHeader)::Int
     return capacity(eh)[end] + index(eh)[end] - 1
 end
