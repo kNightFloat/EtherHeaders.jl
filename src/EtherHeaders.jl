@@ -95,6 +95,10 @@ end
     return capacity(eh)[end] + index(eh)[end] - 1
 end
 
+@inline function Base.length(::AbstractEtherHeader{@NamedTuple{}})::Int
+    return 0
+end
+
 @inline function Base.show(io::IO, eh::AbstractEtherHeader)
     str::String = "$(String(nameof(typeof(eh)))){"
     str *= "$(length(eh))}"
@@ -114,9 +118,13 @@ struct EHeader{Tnt<:NamedTuple} <: AbstractEtherHeader{Tnt}
 end
 
 @inline function EHeader(capacity_nt::NamedTuple)
-    capacity_nt = Int(capacity_nt)
-    index_nt = accumulate(capacity_nt)
-    return EHeader{typeof(index_nt)}(capacity_nt, index_nt)
+    if length(capacity_nt) == 0
+        return EHeader{typeof(NamedTuple())}(NamedTuple(), NamedTuple())
+    else
+        capacity_nt = Int(capacity_nt)
+        index_nt = accumulate(capacity_nt)
+        return EHeader{typeof(index_nt)}(capacity_nt, index_nt)
+    end
 end
 
 end # module EtherHeaders

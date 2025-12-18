@@ -1,7 +1,7 @@
 name = "EtherHeaders"
 uuid = "3e86acbe-5540-45e9-bcfe-e06192d9613f"
 authors = ["ChenyuBao <chenyu.bao@outlook.com>"]
-version = "0.1.5"
+version = "0.1.6"
 
 [deps]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

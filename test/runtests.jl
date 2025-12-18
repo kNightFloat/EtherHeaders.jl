@@ -30,4 +30,9 @@ using EtherHeaders
     @test index(eh, :u) == 5
     @test capacity(eh, :s) == 4
     @test index(eh, :s) == 7
+    y = NamedTuple()
+    ey = EHeader(y)
+    @test capacity(ey) == NamedTuple()
+    @test index(ey) == NamedTuple()
+    @test length(ey) == 0
 end
