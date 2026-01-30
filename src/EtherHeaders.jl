@@ -51,13 +51,13 @@ end
     end
 end
 
-@inline function Base.accumulate(nt::NamedTuple)::NamedTuple
+@inline function Base.accumulate(nt::NamedTuple; start::Integer = 1)::NamedTuple
     if allint(nt)
         _names = keys(nt)
         _values = collect(values(nt))
         len = length(_values)
         new_values = zeros(Int, len)
-        new_values[1] = 1
+        new_values[1] = Int(start)
         for i = 2:len
             new_values[i] = new_values[i-1] + _values[i-1]
         end
@@ -117,12 +117,12 @@ struct EHeader{Tnt<:NamedTuple} <: AbstractEtherHeader{Tnt}
     index_nt_::Tnt
 end
 
-@inline function EHeader(capacity_nt::NamedTuple)
+@inline function EHeader(capacity_nt::NamedTuple; start::Integer = 1)
     if length(capacity_nt) == 0
         return EHeader{typeof(NamedTuple())}(NamedTuple(), NamedTuple())
     else
         capacity_nt = Int(capacity_nt)
-        index_nt = accumulate(capacity_nt)
+        index_nt = accumulate(capacity_nt; start = start)
         return EHeader{typeof(index_nt)}(capacity_nt, index_nt)
     end
 end
