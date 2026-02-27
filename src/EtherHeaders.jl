@@ -28,6 +28,10 @@ end
     return NamedTuple{_names}(Int.(_values))
 end
 
+@inline function dict2nt(d::AbstractDict)::NamedTuple
+    return NamedTuple((Symbol(k), v) for (k, v) in pairs(d))
+end
+
 @inline function allint(nt::NamedTuple)::Bool
     for (_, value) in pairs(nt)
         if !(isa(value, Integer))
